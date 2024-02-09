@@ -13,7 +13,12 @@ const port = process.env.PORT;
 const app = express()
 
 app.use(express.json())
-app.use(cors({credentials: true}))
+app.use(cors())
+
+app.get("/",(req,res)=>{
+    res.setHeader("Access-Control-Allow-Credentials","true");
+    res.send("API is running...");
+});
 
 app.use("/api/user",UserRouter) 
 app.use("/api/blog",BlogRouter) 
