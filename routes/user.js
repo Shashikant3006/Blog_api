@@ -20,6 +20,11 @@ UserRouter.get("/",async(req,res)=>{
 
 
 UserRouter.post("/register",async(req,res)=>{
+    const userExists = await User.findOne({email});
+    if(userExists){
+        res.status(400);
+        throw new Error("User already exists");
+    }
     try {
         const{name,email,password} = req.body;
         if(name&&email&&password){
